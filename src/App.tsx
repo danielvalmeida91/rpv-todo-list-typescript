@@ -1,23 +1,26 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import './App.css'
 
-function App() {
-  const [count, setCount] = useState<number>(0)
-  const [resultado, setResultado] = useState("par")
+export function App() {
+  const [valorDoInput, setValorDoInput] = useState<string>("")
+  const [tarefas, setTarefas] = useState<string[]>([])
 
-  useEffect(() => {
-    setResultado(count % 2 === 0 ? "par" : "ímpar")
-  }, [count])
   return (
     <>
-      <button onClick={() => {
-        setCount(oldState => oldState + 1)
-      }}>
-        count is {count}
-      </button>
-      <p>{resultado}</p>
+      <div className="card">
+        <input type="text" id='input-tarefa' value={valorDoInput} onChange={(e) => setValorDoInput(e.target.value)} />
+        <button onClick={() => {
+          setTarefas(oldState => [...oldState, valorDoInput])
+          setValorDoInput("")
+        }}>Adicionar Tarefa</button>
+      </div>
+      <ul>
+        {
+          tarefas.map(tarefa => (
+            <li>{tarefa}</li>
+          ))
+        }
+      </ul>
     </>
   )
 }
-
-export default App
