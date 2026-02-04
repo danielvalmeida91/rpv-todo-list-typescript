@@ -22,3 +22,20 @@
   font-size: 12px;
   top: 24px;
 }
+
+.item-list {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 8px;
+
+  li {
+    min-width: 200px;
+    text-align: left;
+  }
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+}
