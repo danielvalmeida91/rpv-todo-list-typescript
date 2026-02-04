@@ -4,3 +4,21 @@
   padding: 2rem;
   text-align: center;
 }
+
+.card {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.input-wrapper {
+  position: relative;
+}
+
+.erro {
+  position: absolute;
+  color: red;
+  font-size: 12px;
+  top: 24px;
+}
