@@ -6,9 +6,17 @@ interface IErro {
   description: string
 }
 
+interface ITarefa {
+  id: string
+  descricao: string
+  criadoEm: string
+  ativo: boolean
+  concluido: boolean
+}
+
 export function App() {
   const [valorDoInput, setValorDoInput] = useState<string>("")
-  const [tarefas, setTarefas] = useState<string[]>([])
+  const [tarefas, setTarefas] = useState<ITarefa[]>([])
   const [erro, setErro] = useState<IErro>({
     active: false,
     description: ""
@@ -32,7 +40,7 @@ export function App() {
     }
 
     const tarefasFiltradas = tarefas.filter(
-      tarefa => tarefa.trim().toLowerCase() === valorDoInput.trim().toLowerCase()
+      tarefa => tarefa.descricao.trim().toLowerCase() === valorDoInput.trim().toLowerCase()
     )
 
     if (tarefasFiltradas.length > 0) {
@@ -43,7 +51,15 @@ export function App() {
       return
     }
 
-    setTarefas(oldState => [...oldState, valorDoInput])
+    const montarObjetoTarefa: ITarefa = {
+      id: Math.random().toString(36).substring(2, 9),
+      descricao: valorDoInput,
+      criadoEm: new Date().toISOString(),
+      concluido: false,
+      ativo: true
+    }
+
+    setTarefas(oldState => [...oldState, montarObjetoTarefa])
     setValorDoInput("")
   }
 
@@ -59,7 +75,7 @@ export function App() {
       <ul>
         {
           tarefas.map((tarefa, index) => (
-            <li key={index}>{tarefa}</li>
+            <li key={index}>{tarefa.descricao}</li>
           ))
         }
       </ul>

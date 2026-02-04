@@ -12,6 +12,8 @@ Este projeto é educacional e visa inserir os alunos do Curso Técnico de Desenv
 
 [Layout Inicial](https://github.com/danielvalmeida91/rpv-todo-list-typescript/issues/7) - ✅ Finalizado
 
-[Validações de entrada](https://github.com/danielvalmeida91/rpv-todo-list-typescript/issues/8) - ⚠️ A desenvolver 
+[Validações de entrada](https://github.com/danielvalmeida91/rpv-todo-list-typescript/issues/8) - ✅ Finalizado 
 
 [Informações de Cadastro](https://github.com/danielvalmeida91/rpv-todo-list-typescript/issues/9) - ⚠️ A desenvolver 
+
+<!-- ⚠️✅ -->
