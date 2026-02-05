@@ -27,6 +27,9 @@ export function App() {
     active: false,
     description: ""
   })
+  const [mostrarModal, setMostrarModal] = useState<boolean>()
+  const [realizarAcao, setRealizarAcao] = useState<boolean>(false)
+  const [idTarefaSelecionada, setIdTarefaSelecionada] = useState<string>("")
 
   function adicionarTarefa(): void {
     if (valorDoInput.trim() === "") {
@@ -94,6 +97,11 @@ export function App() {
 
   }
 
+  function abrirModal(idTarefa: string): void {
+    setIdTarefaSelecionada(idTarefa)
+    setMostrarModal(!mostrarModal)
+  }
+
   return (
     <>
       <div className="card">
@@ -108,12 +116,37 @@ export function App() {
           tarefas.map((tarefa) => (
             <div className='item-list'>
               <li key={tarefa.id} className={`${tarefa.concluido === true ? 'concluido' : ''}`}>{tarefa.descricao}</li>
-              <LuTrash style={{ cursor: 'pointer' }} onClick={() => ajustarTarefa({ id: tarefa.id, tipo: "EXCLUIR" })} />
+              <LuTrash style={{ cursor: 'pointer' }} onClick={() => {
+                setIdTarefaSelecionada(tarefa.id)
+                setMostrarModal(!mostrarModal)
+              }} />
+              {/* <LuTrash style={{ cursor: 'pointer' }} onClick={() => ajustarTarefa({ id: tarefa.id, tipo: "EXCLUIR" })} /> */}
               <LuCheck style={{ cursor: 'pointer' }} onClick={() => ajustarTarefa({ id: tarefa.id, tipo: "ATUALIZAR" })} />
+              {/* <LuCheck style={{ cursor: 'pointer' }} onClick={() => ajustarTarefa({ id: tarefa.id, tipo: "ATUALIZAR" })} /> */}
             </div>
           ))
         }
       </ul>
+
+      {mostrarModal === true && (
+        <div className='modal-wrapper'>
+          <div className="modal">
+            <h1>MEU MODAL</h1>
+            <h3>Deseja seguir com a sua solicitação ?</h3>
+            <div className='modal-buttons'>
+              <button onClick={() => {
+                setRealizarAcao(false)
+                setMostrarModal(false)
+                console.log(realizarAcao)
+              }}>NÃO</button>
+              <button onClick={() => {
+                ajustarTarefa({ id: idTarefaSelecionada, tipo: "EXCLUIR" })
+                setMostrarModal(!mostrarModal)
+              }}>SIM</button>
+            </div>
+          </div>
+        </div>
+      )}
     </>
   )
 }
