@@ -15,6 +15,11 @@ interface ITarefa {
   concluido: boolean
 }
 
+interface IAjustarTarefa {
+  id: string,
+  tipo: "ATUALIZAR" | "EXCLUIR"
+}
+
 export function App() {
   const [valorDoInput, setValorDoInput] = useState<string>("")
   const [tarefas, setTarefas] = useState<ITarefa[]>([])
@@ -64,6 +69,31 @@ export function App() {
     setValorDoInput("")
   }
 
+  function ajustarTarefa({ id, tipo }: IAjustarTarefa): void {
+    if (tipo === "ATUALIZAR") {
+      const novoArrayTarefas = tarefas.map(tarefa => {
+        if (tarefa.id === id) {
+          return { ...tarefa, concluido: true }
+        }
+
+        return { ...tarefa }
+      }
+      )
+      return setTarefas(novoArrayTarefas)
+    }
+
+    if (tipo === "EXCLUIR") {
+      const novoArrayTarefas = tarefas.filter(tarefa => {
+        if (tarefa.id !== id) {
+          return { ...tarefa }
+        }
+      }
+      )
+      return setTarefas(novoArrayTarefas)
+    }
+
+  }
+
   return (
     <>
       <div className="card">
@@ -77,9 +107,9 @@ export function App() {
         {
           tarefas.map((tarefa) => (
             <div className='item-list'>
-              <li key={tarefa.id}>{tarefa.descricao}</li>
-              <LuTrash />
-              <LuCheck />
+              <li key={tarefa.id} className={`${tarefa.concluido === true ? 'concluido' : ''}`}>{tarefa.descricao}</li>
+              <LuTrash style={{ cursor: 'pointer' }} onClick={() => ajustarTarefa({ id: tarefa.id, tipo: "EXCLUIR" })} />
+              <LuCheck style={{ cursor: 'pointer' }} onClick={() => ajustarTarefa({ id: tarefa.id, tipo: "ATUALIZAR" })} />
             </div>
           ))
         }

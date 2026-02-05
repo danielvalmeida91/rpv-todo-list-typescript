@@ -39,3 +39,8 @@ ul {
   list-style: none;
   padding: 0;
 }
+
+.concluido {
+  text-decoration-line: line-through;
+  color: #676666;
+}
